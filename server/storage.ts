@@ -10,6 +10,8 @@ import {
   type InsertExtensionSettings,
   type SettingsUpdate
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -22,6 +24,86 @@ export interface IStorage {
   
   getExtensionSettings(userId: number): Promise<ExtensionSettings | undefined>;
   updateExtensionSettings(userId: number, settings: SettingsUpdate): Promise<ExtensionSettings>;
+}
+
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async createTextProcessingJob(insertJob: InsertTextProcessingJob): Promise<TextProcessingJob> {
+    const [job] = await db
+      .insert(textProcessingJobs)
+      .values({
+        originalText: insertJob.originalText,
+        typingSpeed: insertJob.typingSpeed || 100,
+        aiModel: insertJob.aiModel || "gpt-4o",
+      })
+      .returning();
+    return job;
+  }
+
+  async getTextProcessingJob(id: number): Promise<TextProcessingJob | undefined> {
+    const [job] = await db.select().from(textProcessingJobs).where(eq(textProcessingJobs.id, id));
+    return job || undefined;
+  }
+
+  async updateTextProcessingJob(id: number, updates: Partial<TextProcessingJob>): Promise<TextProcessingJob> {
+    const [job] = await db
+      .update(textProcessingJobs)
+      .set(updates)
+      .where(eq(textProcessingJobs.id, id))
+      .returning();
+    
+    if (!job) {
+      throw new Error(`Job with id ${id} not found`);
+    }
+    return job;
+  }
+
+  async getExtensionSettings(userId: number): Promise<ExtensionSettings | undefined> {
+    const [settings] = await db.select().from(extensionSettings).where(eq(extensionSettings.userId, userId));
+    return settings || undefined;
+  }
+
+  async updateExtensionSettings(userId: number, settingsUpdate: SettingsUpdate): Promise<ExtensionSettings> {
+    const existingSettings = await this.getExtensionSettings(userId);
+    
+    if (existingSettings) {
+      const [settings] = await db
+        .update(extensionSettings)
+        .set(settingsUpdate)
+        .where(eq(extensionSettings.userId, userId))
+        .returning();
+      return settings;
+    } else {
+      const [settings] = await db
+        .insert(extensionSettings)
+        .values({
+          userId,
+          typingSpeed: settingsUpdate.typingSpeed || 100,
+          aiModel: settingsUpdate.aiModel || "gpt-4o",
+          autoStart: settingsUpdate.autoStart || false,
+          apiKey: settingsUpdate.apiKey || null,
+        })
+        .returning();
+      return settings;
+    }
+  }
 }
 
 export class MemStorage implements IStorage {
@@ -124,4 +206,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
