@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "AI Text Assistant for zav.cz",
+  "version": "1.0.0",
+  "description": "AI-powered typing assistant that automatically completes Czech typing exercises on zav.cz with customizable speed",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://zav.cz/*",
+    "http://localhost:5000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://zav.cz/*"],
+      "js": ["content-script.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "AI Text Assistant",
+    "default_icon": {
+      "16": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMkM1Ljc5IDIgNCAzLjc5IDQgNlY5QzQgMTEuMjEgNS43OSAxMyA4IDEzUzEyIDExLjIxIDEyIDlWNkMxMiAzLjc5IDEwLjIxIDIgOCAyWiIgZmlsbD0iIzE5NzZEMiIvPgo8Y2lyY2xlIGN4PSI2IiBjeT0iNyIgcj0iMSIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMTAiIGN5PSI3IiByPSIxIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNiA5SDEwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik04IDEzVjE1IiBzdHJva2U9IiMxOTc2RDIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4+Cjwvc3ZnPgo=",
+      "32": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDRDMTI41OCA0IDkuNSA2Ljg2IDkuNSAxMC41VjE4QzkuNSAyMS42NCAxMi41OCAyNC41IDE2IDI0LjVTMjIuNSAyMS42NCAyMi41IDE4VjEwLjVDMjIuNSA2Ljg2IDE5LjQyIDQgMTYgNFoiIGZpbGw9IiMxOTc2RDIiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxNCIgcj0iMiIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNCIgcj0iMiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEyIDE4SDIwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTYgMjQuNVYzMCIgc3Ryb2tlPSIjMTk3NkQyIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K"
+    }
+  },
+  "icons": {
+    "16": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggMkM1Ljc5IDIgNCAzLjc5IDQgNlY5QzQgMTEuMjEgNS43OSAxMyA4IDEzUzEyIDExLjIxIDEyIDlWNkMxMiAzLjc5IDEwLjIxIDIgOCAyWiIgZmlsbD0iIzE5NzZEMiIvPgo8Y2lyY2xlIGN4PSI2IiBjeT0iNyIgcj0iMSIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMTAiIGN5PSI3IiByPSIxIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNiA5SDEwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik04IDEzVjE1IiBzdHJva2U9IiMxOTc2RDIiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjwvZz4+Cjwvc3ZnPgo=",
+    "32": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE2IDRDMTI1OCA0IDkuNSA2Ljg2IDkuNSAxMC41VjE4QzkuNSAyMS42NCAxMi41OCAyNC41IDE2IDI0LjVTMjIuNSAyMS42NCAyMi41IDE4VjEwLjVDMjIuNSA2Ljg2IDE5LjQyIDQgMTYgNFoiIGZpbGw9IiMxOTc2RDIiLz4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxNCIgcj0iMiIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNCIgcj0iMiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTEyIDE4SDIwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMTYgMjQuNVYzMCIgc3Ryb2tlPSIjMTk3NkQyIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K",
+    "48": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTI0IDZDMTGUODCGNIAXNS41IDEwLjI5IDE1LjUgMTUuNzVWMjdDMTUuNSAzMi40NiAxOC44NyAzNi43NSAyNCAzNi43NVMzMi41IDMyLjQ2IDMyLjUgMjdWMTUuNzVDMzIuNSAxMC4yOSAyOS4xMyA2IDI0IDZaIiBmaWxsPSIjMTk3NkQyIi8+CjxjaXJjbGUgY3g9IjE4IiBjeT0iMjEiIHI9IjMiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9IjMwIiBjeT0iMjEiIHI9IjMiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xOCAyN0gzMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0LjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNMjQgMzYuNzVWNDUiIHN0cm9rZT0iIzE5NzZEMiIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg==",
+    "128": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik02NCAxNkMzNi42OSAxNiAyNCAzMi43NyAyNCA1NFY3MkMyNCA5NC4yMyAzNi42OSAxMTEgNjQgMTExUzEwNCA5NC4yMyAxMDQgNzJWNTRDMTA0IDMyLjc3IDkxLjMxIDE2IDY0IDE2WiIgZmlsbD0iIzE5NzZEMiIvPgo8Y2lyY2xlIGN4PSI0OCIgY3k9IjU2IiByPSI4IiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSI4MCIgY3k9IjU2IiByPSI4IiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNDggNzJIODAiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8cGF0aCBkPSJNNjQgMTExVjEyMCIgc3Ryb2tlPSIjMTk3NkQyIiBzdHJva2Utd2lkdGg9IjE2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+Cg=="
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
